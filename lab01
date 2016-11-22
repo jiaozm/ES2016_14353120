@@ -1,0 +1,59 @@
+# Lab1:DOL开发环境配置
+需要用到Make工具，Ant工具以及Java
+***
+## 实验过程
+#### 1、
+    此次实验所用版本为Ubuntu14.04，安装完虚拟机之后，首先是安装VMwareTools，使得主机可以和虚拟机之间直接复制粘贴文件。步骤如下：
+将得到的压缩包放在Documents下，解压该文件：<br>
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/1.png) <p>
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/2.png) <p>
+解压文件到当前文件夹的命令：
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/3.png) <p>
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/4.png) <p>
+启用权限并且完成安装
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/5.png) <p>
+安装完成后重启即可
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/6.png) <p>
+成功的标志。
+#### 2、安装必要环境：
+进入Ubuntu下，打开终端<Ctrl+Alt+t>，依次输入以下指令 
+```
+$sudo apt-get update 
+$sudo apt-get install ant 
+$sudo apt-get install openjdk-7-jdk 
+$sudo apt-get install unzip
+```
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/7.png) <p>
+此时完成这个步骤了。
+#### 3、将所给的文件放在home中，解压文件：
+```
+首先新建dol文件夹：<$ mkdir dol>
+将下载的文件dol_ethz.zip解压到dol文件夹中：<$ unzip dol_ethz.zip -d dol>
+解压systemc：<$ tar -zxvf systemc-2.3.1.tgz>
+编译systemc
+解压后进入systemc-2.3.1的目录下：<$ cd systemc-2.3.1>
+新建一个临时文件夹objdir：<$ mkdir objdir>
+进入该文件夹objdir：<$ cd objdir>
+运行configure(能根据系统的环境设置一下参数，用于编译)：<$ ../configure CXX=g++ --disable-async-updates>
+```
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/8.png) <p>
+此时表示配置成功！
+#### 4、编译DOL：
+进入刚刚的dol文件夹：<$ cd ../dol>
+修改build_zip.xml文件,找到下面这段话，就是说上面编译的systemc位置在哪里， 
+<property name="systemc.inc" value="YYY/include"/> 
+<property name="systemc.lib" value="YYY/lib-linux/libsystemc.a"/>> 
+把YYY改成上页pwd的结果（注意，对于64位系统的机器，lib-linux要改成lib-linux64）
+编译<$ ant -f build_zip.xml all>，若是成功，会显示build successful.
+如图：
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/9.png) <p>
+#### 5、测试一下是否成功：
+进入build/bin/mian路径下：<$ cd build/bin/main>
+运行第一个例子：<$ ant -f runexample.xml -Dnumber=1>
+![](https://raw.githubusercontent.com/jiaozm/ES2016_14353120/master/lab1_pic/10.png) <p>
+
+## 实验感想：
+  此次dol环境的配置实验并不难，途中出项的一些问题都很快得到了解决。如没装g++导致实验不能继续等等。还有就是一开始对于一些语句使用不熟悉导致的错误等等。
+	此外，还有就是学会了使用markdown这门语言，从此之后进行文档编辑更加轻松了些。
+
+
